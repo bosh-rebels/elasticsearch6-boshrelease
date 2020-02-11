@@ -20,6 +20,13 @@ provides:
   type: elasticsearch
   properties:
   - elasticsearch.cluster_name
+  - elasticsearch.client.protocol
+  - elasticsearch.client.username
+  - elasticsearch.client.password
+  - elasticsearch.client.host
+  - elasticsearch.client.port
+  - elasticsearch.node.allow_data
+  - elasticsearch.node.allow_master
 
 consumes:
 - name: elasticsearch

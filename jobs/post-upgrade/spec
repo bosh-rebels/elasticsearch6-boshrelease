@@ -1,0 +1,12 @@
+---
+name: post-upgrade
+
+templates: {}
+
+consumes:
+- name: elasticsearch-master
+  type: elasticsearch
+
+packages: []
+
+properties: {}
