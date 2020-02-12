@@ -40,7 +40,7 @@ describe "post-upgrade job" do
     def build_links(properties)
       [
         Bosh::Template::Test::Link.new(
-        name: 'elasticsearch-master',
+        name: 'elasticsearch',
         instances: [Bosh::Template::Test::LinkInstance.new(address: '10.0.8.2')],
         properties: properties) 
       ]     

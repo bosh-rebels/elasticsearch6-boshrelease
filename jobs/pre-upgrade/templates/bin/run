@@ -8,7 +8,7 @@ set -u # report the usage of uninitialized variables
 ############################################################################
 
 <%
-node = link('elasticsearch-master')
+node = link('elasticsearch')
 protocol = node.p('elasticsearch.client.protocol', 'http')
 url="#{protocol}://"
 username = node.p('elasticsearch.client.username', nil)
