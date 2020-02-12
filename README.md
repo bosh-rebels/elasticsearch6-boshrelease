@@ -10,7 +10,21 @@ If you want to use X-Pack features, download [Elastic licensed distribution](htt
 
 ### How to use errands
 
+#### Preparing for deployment update
+
+Cluster level shard allocation needs to be disabled before deployment changes.
+In order to disable cluster.routing.allocation run :
+```
+$ bosh -d elasticsearch run-errand preupgrade
+```
+After the deployment is complete, we have to enable cluster routing allocation by running following command:
+```
+$ bosh -d elasticsearch run-errand postupgrade
+```
+
+
 #### Create/update index templates
+
 
 The errand job `elasticsearch-index-templates` will make a request to the `/_template/` API with a template name and a
 json body, which will be the index template to be created.

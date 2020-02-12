@@ -3,9 +3,7 @@ name: elasticsearch
 
 templates:
   bin/ctl: bin/ctl
-  bin/post-start: bin/post-start
   bin/pre-start: bin/pre-start
-  bin/drain: bin/drain
   bin/keystore-add.sh: bin/keystore-add.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
   config/elasticsearch.yml: config/elasticsearch.yml

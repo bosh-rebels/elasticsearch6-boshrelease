@@ -1,7 +1,8 @@
 ---
 name: pre-upgrade
 
-templates: {}
+templates:
+  bin/run: bin/run
 
 consumes:
 - name: elasticsearch-master

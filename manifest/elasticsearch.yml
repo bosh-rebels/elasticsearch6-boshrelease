@@ -35,8 +35,36 @@ instance_groups:
   - z1
   - z2
   - z3
-  vm_type: small
+  vm_type: default
   persistent_disk: 1024
+  networks:
+  - name: default
+- name: preupgrade
+  lifecycle: errand
+  jobs:
+  - name: pre-upgrade
+    release: elasticsearch
+  instances: 1
+  stemcell: xenial
+  azs:
+  - z1
+  - z2
+  - z3
+  vm_type: default
+  networks:
+  - name: default
+- name: postupgrade
+  lifecycle: errand
+  jobs:
+  - name: post-upgrade
+    release: elasticsearch
+  instances: 1
+  stemcell: xenial
+  azs:
+  - z1
+  - z2
+  - z3
+  vm_type: default
   networks:
   - name: default
 
