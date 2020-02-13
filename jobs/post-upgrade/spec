@@ -1,10 +1,11 @@
 ---
 name: post-upgrade
 
-templates: {}
+templates:
+  bin/run: bin/run
 
 consumes:
-- name: elasticsearch-master
+- name: elasticsearch
   type: elasticsearch
 
 packages: []
