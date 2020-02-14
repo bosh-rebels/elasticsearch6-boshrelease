@@ -11,18 +11,24 @@ plugin_blob_url_list=(\
     https://artifacts.elastic.co/downloads/elasticsearch-plugins/repository-azure/repository-azure-${ES_VERSION}.zip \
 )
 
-mkdir -p $DOWNLOAD_FOLDER/{elasticsearch,elasticsearch-plugins}
+mkdir -p $DOWNLOAD_FOLDER/elasticsearch
 
 pushd "$DOWNLOAD_FOLDER" 
     pushd elasticsearch
-        curl -L -O -J https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}-no-jdk-linux-x86_64.tar.gz
+        curl -L -J https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}-no-jdk-linux-x86_64.tar.gz -o elasticsearch-${ES_VERSION}.tar.gz
     popd
-    pushd elasticsearch-plugins
-        for blob_url in "${plugin_blob_url_list[@]}"; do
-            curl -L -O -J "$blob_url"
-        done
-    popd
-    for file in $(find . -type file); do
+    
+    for blob_url in "${plugin_blob_url_list[@]}"; do
+        filename=${blob_url##*/}
+        folder_name=${filename%-*}
+        
+        mkdir -p "$folder_name"
+        pushd "$folder_name"
+            curl -L -J "$blob_url" -o "$folder_name-${ES_VERSION}.zip"
+        popd
+    done
+    
+    for file in $(find . -type f); do
         bosh add-blob --dir="$THIS_SCRIPT_DIR" ${file} ${file##\./}
     done
 popd
