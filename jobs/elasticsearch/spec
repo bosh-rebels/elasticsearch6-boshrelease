@@ -12,6 +12,7 @@ templates:
 
 packages:
 - elasticsearch
+- openjdk-11
 
 provides:
 - name: elasticsearch

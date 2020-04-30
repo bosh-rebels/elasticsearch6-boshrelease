@@ -11,7 +11,7 @@ RUNAS=vcap
 
 source $JOB_DIR/bin/ctl_utils.sh
 
-export JAVA_HOME=/var/vcap/packages/java
+source /var/vcap/packages/openjdk-11/bosh/runtime.env
 export PATH=$PATH:$JAVA_HOME/bin
 
 export ES_PATH_CONF=${JOB_DIR}/config
