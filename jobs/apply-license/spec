@@ -1,0 +1,15 @@
+---
+name: apply-license
+
+templates:
+  bin/run: bin/run
+
+consumes:
+- name: elasticsearch
+  type: elasticsearch
+
+packages: []
+
+properties:
+  elasticsearch.license:
+    description: Elastic Search License in JSON format

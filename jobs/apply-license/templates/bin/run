@@ -1,0 +1,43 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+############################################################################
+#!/bin/bash
+
+exec 2>&1
+
+set -e # exit immediately if a simple command exits with a non-zero status
+set -u # report the usage of uninitialized variables
+
+############################################################################
+
+<%
+node = link('elasticsearch')
+protocol = node.p('elasticsearch.client.protocol', 'http')
+url="#{protocol}://"
+username = node.p('elasticsearch.client.username', nil)
+password = node.p('elasticsearch.client.password', nil)
+if username && password
+  url += "#{username}:#{password}@"
+end
+host = node.instances.first.address
+url += host
+port = node.p('elasticsearch.client.port', nil)
+if port
+  url += ":#{port}"
+end
+%>
+function request_elk {
+    local action=$1
+    local endpoint=$2
+    local body=$3
+    local url=<%= url %>
+
+    curl -s -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body" > /dev/null
+}
+
+request_elk PUT /_license?acknowledge=true '<%= p("elasticsearch.license") %>'
