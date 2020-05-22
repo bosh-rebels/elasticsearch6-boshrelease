@@ -118,6 +118,3 @@ properties:
   monit.enable_http_healthcheck:
     description: "Whether to enable http healthchek for monit (true / false). Disabled by default."
     default: false
-  elasticsearch.xpack.security.enabled:
-    description: "This must be false if you are using trial/basic license"
-    default: false
