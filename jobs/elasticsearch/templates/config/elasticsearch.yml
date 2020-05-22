@@ -122,3 +122,4 @@ cluster.initial_master_nodes: <%= master_hosts[0] %>
 <% if_p('elasticsearch.config_options') do |config_options| %>
 <%= config_options.to_yaml.gsub(/---/, '') %>
 <% end %>
+xpack.security.enabled: <%= elasticsearch.xpack.security.enabled %>
