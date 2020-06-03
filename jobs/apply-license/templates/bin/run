@@ -1,19 +1,10 @@
-#!/bin/bash
+#!/bin/bash 
 
 exec 2>&1
 
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
-
-############################################################################
-#!/bin/bash
-
-exec 2>&1
-
-set -e # exit immediately if a simple command exits with a non-zero status
-set -u # report the usage of uninitialized variables
-
-############################################################################
+set -x # enable verbose mode
 
 <%
 node = link('elasticsearch')
@@ -37,7 +28,7 @@ function request_elk {
     local body=$3
     local url=<%= url %>
 
-    curl -iv -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body" > /dev/null
+    curl -iv -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body" 
 }
 
 request_elk PUT /_license?acknowledge=true '<%= p("elasticsearch.license") %>'
