@@ -21,13 +21,38 @@ if port
   url += ":#{port}"
 end
 %>
+
+function check_licence_is_invalid {
+   local result=$1
+   if [[ "$result" ==  *"returned error: 500 Internal Server Error"* ]]; then
+      return 0
+    else 
+      return 1
+   fi
+}
+
+function check_license_is_expired {
+  local result=$1
+   if [[ "$result" == *"expired"* ]]; then
+      return 0
+   else 
+      return 1
+   fi
+}
+
 function request_elk {
     local action=$1
     local endpoint=$2
     local body=$3
     local url=<%= url %>
 
-    curl -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body" 
+    operation_status=$(curl --fail -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body")
+    echo "$operation_status"
+    if check_licence_is_invalid $operation_status || check_license_is_expired $operation_status ; then
+        return 100
+      else
+        return 0
+    fi
 }
 
 request_elk PUT /_license?acknowledge=true '<%= p("elasticsearch.license") %>'
