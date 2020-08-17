@@ -9,6 +9,10 @@ templates:
   config/elasticsearch.yml: config/elasticsearch.yml
   config/jvm.options: config/jvm.options
   config/log4j2.properties: config/log4j2.properties
+  config/certs/ca.pem.erb: config/certs/ca.pem
+  config/certs/cert.pem.erb: config/certs/cert.pem
+  config/certs/key.pem.erb: config/certs/key.pem
+
 
 packages:
 - elasticsearch
@@ -33,6 +37,12 @@ consumes:
   optional: true
 
 properties:
+  elasticsearch.ssl.ca:
+    description: CA certificate
+  elasticsearch.ssl.cert:
+    description: Node certificate
+  elasticsearch.ssl.key:
+    description: key
   elasticsearch.log_level:
     description: The default logging level (e.g. WARN, DEBUG, INFO)
     default: INFO
@@ -74,7 +84,7 @@ properties:
     default: false
   elasticsearch.cluster.routing.allocation.enable_post_start:
     description: |
-      The strategy to enable allocation for specific kinds of shards (all / primaries / new_primaries) 
+      The strategy to enable allocation for specific kinds of shards (all / primaries / new_primaries)
       see also https://www.elastic.co/guide/en/elasticsearch/reference/current/shards-allocation.html
     default: all
   elasticsearch.secure_settings:

@@ -30,6 +30,17 @@ describe 'elasticsearch job' do
       expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2')
       expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2')
+      expect(config['xpack.security.enabled']).to eq(nil)
+    end
+
+    it 'enables xpack.security when all elasticsearch.ssl properties are set' do
+      config = YAML.safe_load(template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate', 'cert' => 'certificate', 'key' => 'key'}}}, consumes: links))
+      expect(config['xpack.security.enabled']).to eq(true)
+    end
+
+    it 'disables xpack.security when some of elasticsearch.ssl properties are set' do
+      config = YAML.safe_load(template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate'}}}, consumes: links))
+      expect(config['xpack.security.enabled']).to eq(nil)
     end
 
     it 'makes elasticsearch.node.allow_data false' do
@@ -115,8 +126,8 @@ describe 'elasticsearch job' do
     end
 
     it 'configures multi-clusters secondary master successfully' do
-      config = YAML.safe_load(template.render({}, 
-        spec: Bosh::Template::Test::LinkInstance.new(az: 'az1', address: '10.0.8.2', index: 1), 
+      config = YAML.safe_load(template.render({},
+        spec: Bosh::Template::Test::LinkInstance.new(az: 'az1', address: '10.0.8.2', index: 1),
         consumes: [
         Bosh::Template::Test::Link.new(
           name: 'elasticsearch',
@@ -224,4 +235,31 @@ describe 'elasticsearch job' do
       expect(prestart).to include('elasticsearch-plugin install --batch "repository-gcs"')
     end
   end
+
+  describe 'elasticsearch ssl ca' do
+    let(:template) { job.template('config/certs/ca.pem') }
+
+    it 'sets ca' do
+      cert_file = template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate'}}}).strip
+      expect(cert_file).to include('certificate')
+    end
+  end
+
+  describe 'elasticsearch ssl cert' do
+    let(:template) { job.template('config/certs/cert.pem') }
+    it 'sets cert' do
+      cert_file = template.render({'elasticsearch' => {'ssl'=> {'cert' => 'certificate'}}}).strip
+      expect(cert_file).to include('certificate')
+    end
+  end
+
+  describe 'elasticsearch ssl key' do
+    let(:template) { job.template('config/certs/key.pem') }
+
+    it 'sets key' do
+      key_file = template.render({'elasticsearch' => {'ssl'=> {'key' => 'key'}}}).strip
+      expect(key_file).to include('key')
+    end
+  end
+
 end

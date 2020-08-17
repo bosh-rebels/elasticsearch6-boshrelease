@@ -122,3 +122,15 @@ cluster.initial_master_nodes: <%= master_hosts[0] %>
 <% if_p('elasticsearch.config_options') do |config_options| %>
 <%= config_options.to_yaml.gsub(/---/, '') %>
 <% end %>
+
+<% if_p('elasticsearch.ssl.ca', 'elasticsearch.ssl.cert', 'elasticsearch.ssl.key') do |ca, cert, key| %>
+xpack.security.enabled: true
+xpack.security.http.ssl.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.http.ssl.key: certs/key.pem
+xpack.security.http.ssl.certificate: certs/cert.pem
+xpack.security.http.ssl.certificate_authorities: certs/ca.pem
+xpack.security.transport.ssl.key: certs/key.pem
+xpack.security.transport.ssl.certificate: certs/cert.pem
+xpack.security.transport.ssl.certificate_authorities: certs/ca.pem
+<% end %>
