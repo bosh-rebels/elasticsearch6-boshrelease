@@ -2,6 +2,6 @@ name: elasticsearch
 blobstore:
   provider: s3
   options:
-    bucket_name: elastic-search-boshrelease
-    region: ap-northeast-1
-    endpoint: https://s3-ap-northeast-1.amazonaws.com
+    bucket_name: elasticsearch-boshrelease-blobstore
+    region: eu-west-2
+    host: s3-eu-west-2.amazonaws.com
