@@ -12,12 +12,4 @@ releases/**/*.tgz
 *~
 *#
 #*
-.downloads
-credentials.yml
-terraform.tfvars
-terraform.tfstate*
-.terraform
-plan
-*-creds.yml
-.ruby-version
 Gemfile.lock

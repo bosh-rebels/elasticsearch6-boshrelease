@@ -1,7 +1,7 @@
 #!/bin/bash
 
 THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-DOWNLOAD_FOLDER="$THIS_SCRIPT_DIR/.downloads"
+DOWNLOAD_FOLDER="/tmp/bosh_downloads"
 ES_VERSION=7.9.0
 
 plugin_blob_url_list=(\
