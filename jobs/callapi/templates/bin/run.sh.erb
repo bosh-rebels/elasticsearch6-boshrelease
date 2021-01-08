@@ -19,23 +19,13 @@ if port
 end
 %>
 
-function request_elk {
-    local action=$1
-    local endpoint=$2
-    local headers=$3
-    local body=$4
-    local url=<%= url %>
-
-    curl -s -X "$action" "${headers}" -k "${url}${endpoint}" -d "$body"
-}
-
 <%
 if_p('calls') do |api_calls|
   api_calls.each do |api_call|
 
-  rendered_headers = api_call.fetch("headers").map{|header| "-H #{header.keys[0]}: #{header.values[0]}"}.join(" ")
+  rendered_headers = api_call.fetch("headers").map{|header| "-H '#{header.keys[0]}: #{header.values[0]}'"}.join(" ")
 %>
-request_elk <%= api_call.fetch("action") %> <%= api_call.fetch("endpoint") %> '<%= rendered_headers %>' '<%= api_call.fetch("payload") %>'
+curl -s -X  <%= api_call.fetch("action") %> <%= rendered_headers %>  <%= url %><%= api_call.fetch("endpoint") %> -d '<%= api_call.fetch("payload") %>'
 <%
   end
 end
