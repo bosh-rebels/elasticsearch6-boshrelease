@@ -97,14 +97,7 @@ node.master: <%= p("elasticsearch.node.allow_master") %>
 node.data: <%= p("elasticsearch.node.allow_data") %>
 node.ingest: <%= p("elasticsearch.node.allow_ingest") %>
 
-<%
-  cluster_name = nil
-  if_link("elasticsearch") { |elasticsearch_link| cluster_name = elasticsearch_link.p("elasticsearch.cluster_name") }
-  unless cluster_name
-    cluster_name = p("elasticsearch.cluster_name")
-  end
-%>
-cluster.name: <%= cluster_name %>
+cluster.name: <%= spec.deployment %>
 
 <%
   master_hosts = nil
@@ -123,14 +116,26 @@ cluster.initial_master_nodes: <%= master_hosts[0] %>
 <%= config_options.to_yaml.gsub(/---/, '') %>
 <% end %>
 
-<% if_p('elasticsearch.ssl.ca', 'elasticsearch.ssl.cert', 'elasticsearch.ssl.key') do |ca, cert, key| %>
-xpack.security.enabled: true
-xpack.security.http.ssl.enabled: true
-xpack.security.transport.ssl.enabled: true
-xpack.security.http.ssl.key: certs/key.pem
-xpack.security.http.ssl.certificate: certs/cert.pem
-xpack.security.http.ssl.certificate_authorities: certs/ca.pem
-xpack.security.transport.ssl.key: certs/key.pem
-xpack.security.transport.ssl.certificate: certs/cert.pem
-xpack.security.transport.ssl.certificate_authorities: certs/ca.pem
+## Security
+xpack.security.enabled: <%= p('elasticsearch.security.enabled') %>
+
+<% if p('elasticsearch.security.enabled') %>
+## Inter-node communication certificates
+xpack.security.transport.ssl.enabled: <%= p('elasticsearch.security.ssl.transport.enabled') %>
+  <% if p('elasticsearch.security.ssl.transport.enabled') %>
+xpack.security.transport.ssl.key: certs/transport/key.pem
+xpack.security.transport.ssl.certificate: certs/transport/cert.pem
+xpack.security.transport.ssl.certificate_authorities: certs/transport/ca.pem
+xpack.security.transport.ssl.verification_mode: <%= p('elasticsearch.security.ssl.transport.verification_mode') %>
+  <% end %>
+
+
+## HTTP Certificate (from APPs to ELK)
+xpack.security.http.ssl.enabled: <%= p('elasticsearch.security.ssl.http.enabled') %>
+  <% if p('elasticsearch.security.ssl.http.enabled')  %>
+xpack.security.http.ssl.key: certs/http/key.pem
+xpack.security.http.ssl.certificate: certs/http/cert.pem
+xpack.security.http.ssl.certificate_authorities: certs/http/ca.pem
+  <% end %>
+
 <% end %>

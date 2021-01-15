@@ -4,15 +4,19 @@ name: elasticsearch
 templates:
   bin/ctl: bin/ctl
   bin/pre-start: bin/pre-start
+  bin/post-start: bin/post-start
   bin/keystore-add.sh: bin/keystore-add.sh
+  bin/setup-builtin-users.sh: bin/setup-builtin-users.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
   config/elasticsearch.yml: config/elasticsearch.yml
   config/jvm.options: config/jvm.options
   config/log4j2.properties: config/log4j2.properties
-  config/certs/ca.pem.erb: config/certs/ca.pem
-  config/certs/cert.pem.erb: config/certs/cert.pem
-  config/certs/key.pem.erb: config/certs/key.pem
-
+  config/certs/transport/ca.pem.erb: config/certs/transport/ca.pem
+  config/certs/transport/cert.pem.erb: config/certs/transport/cert.pem
+  config/certs/transport/key.pem.erb: config/certs/transport/key.pem
+  config/certs/http/ca.pem.erb: config/certs/http/ca.pem
+  config/certs/http/cert.pem.erb: config/certs/http/cert.pem
+  config/certs/http/key.pem.erb: config/certs/http/key.pem
 
 packages:
 - elasticsearch
@@ -22,7 +26,6 @@ provides:
 - name: elasticsearch
   type: elasticsearch
   properties:
-  - elasticsearch.cluster_name
   - elasticsearch.client.protocol
   - elasticsearch.client.username
   - elasticsearch.client.password
@@ -30,6 +33,7 @@ provides:
   - elasticsearch.client.port
   - elasticsearch.node.allow_data
   - elasticsearch.node.allow_master
+  
 
 consumes:
 - name: elasticsearch
@@ -37,12 +41,6 @@ consumes:
   optional: true
 
 properties:
-  elasticsearch.ssl.ca:
-    description: CA certificate
-  elasticsearch.ssl.cert:
-    description: Node certificate
-  elasticsearch.ssl.key:
-    description: key
   elasticsearch.log_level:
     description: The default logging level (e.g. WARN, DEBUG, INFO)
     default: INFO
@@ -54,9 +52,6 @@ properties:
   elasticsearch.jvm_options:
     description: Additional Java Virtual Machine options
     default: []
-  elasticsearch.cluster_name:
-    description: The name of the elastic search cluster
-    default: "bosh_es"
   elasticsearch.node.allow_master:
     description: Allow node to become master? (true / false)
     default: true
@@ -72,6 +67,39 @@ properties:
   elasticsearch.health.interval:
     description: Post-start interval for node to join cluster (seconds)
     default: 15
+  elasticsearch.security.builtin_users:
+    default: []
+    example:
+      - name: username-1
+        password: password
+      - name: another-user
+        password: secret
+    description: A list containing the users/passwords to setup
+  elasticsearch.security.enabled:
+    description: Enable xpack.security.enabled
+    default: false
+  elasticsearch.security.ssl.transport.enabled:
+    description: Enable encryption between nodes in the cluster
+    default: false
+  elasticsearch.security.ssl.transport.private_key:
+    description: Only use when elasticsearch.security.ssl.transport.enabled is true
+  elasticsearch.security.ssl.transport.certificate:
+    description: Only use when elasticsearch.security.ssl.transport.enabled is true
+  elasticsearch.security.ssl.transport.ca:
+    description: Only use when elasticsearch.security.ssl.transport.enabled is true
+  elasticsearch.security.ssl.transport.verification_mode:
+    description: Depeding on how the certificate has been generated, you need to choose between none, certificate and full
+    default: none
+  elasticsearch.security.ssl.http.enabled:
+    description: Enable encryption between nodes in the cluster
+    default: false
+  elasticsearch.security.ssl.http.private_key:
+    description: Only use when elasticsearch.security.ssl.http.enabled is true
+  elasticsearch.security.ssl.http.certificate:
+    description: Only use when elasticsearch.security.ssl.http.enabled is true
+  elasticsearch.security.ssl.http.ca:
+    description: Only use when elasticsearch.security.ssl.http.enabled is true
+
   elasticsearch.plugins:
     description: "Plugins to run elasticsearch with (array[] = { plugin-name: install-source }; e.g. [ { analysis-kuromoji: 'analysis-kuromoji' } ])"
     default: []

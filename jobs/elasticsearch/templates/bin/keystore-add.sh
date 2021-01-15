@@ -17,5 +17,6 @@ elasticsearch-keystore remove <%= setting['name'] %> || true
 <% end %>
 <% end %>
 echo "== Secure settings =="
+cp /var/vcap/packages/elasticsearch/config/elasticsearch.keystore /var/vcap/jobs/elasticsearch/config/elasticsearch.keystore
 elasticsearch-keystore list || true
 <% end %>

@@ -14,3 +14,4 @@ releases/**/*.tgz
 #*
 Gemfile.lock
 .ruby-version
+.envrc

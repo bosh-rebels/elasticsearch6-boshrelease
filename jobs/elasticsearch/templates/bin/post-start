@@ -1,0 +1,5 @@
+#!/bin/bash
+
+<% if spec.bootstrap %>
+/var/vcap/jobs/elasticsearch/bin/setup-builtin-users.sh
+<% end %>
