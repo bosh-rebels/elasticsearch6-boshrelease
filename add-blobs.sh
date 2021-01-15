@@ -2,7 +2,7 @@
 
 THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DOWNLOAD_FOLDER="/tmp/bosh_downloads"
-ES_VERSION=7.9.0
+ES_VERSION=7.10.2
 
 plugin_blob_url_list=(\
     https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-kuromoji/analysis-kuromoji-${ES_VERSION}.zip \
