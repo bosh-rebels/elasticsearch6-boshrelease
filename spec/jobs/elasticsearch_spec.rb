@@ -27,20 +27,14 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2')
       expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2')
-      expect(config['xpack.security.enabled']).to eq(nil)
-    end
-
-    it 'enables xpack.security when all elasticsearch.ssl properties are set' do
-      config = YAML.safe_load(template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate', 'cert' => 'certificate', 'key' => 'key'}}}, consumes: links))
-      expect(config['xpack.security.enabled']).to eq(true)
+      expect(config['xpack.security.enabled']).to eq(false)
     end
 
     it 'disables xpack.security when some of elasticsearch.ssl properties are set' do
       config = YAML.safe_load(template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate'}}}, consumes: links))
-      expect(config['xpack.security.enabled']).to eq(nil)
+      expect(config['xpack.security.enabled']).to eq(false)
     end
 
     it 'makes elasticsearch.node.allow_data false' do
@@ -80,11 +74,7 @@ describe 'elasticsearch job' do
           instances: [Bosh::Template::Test::LinkInstance.new(address: '10.0.8.2'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.3'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.4')],
-          properties: {
-            'elasticsearch'=> {
-              'cluster_name' => 'test'
-            },
-          }
+          properties: {}
         ),
       ]))
       expect(config['node.name']).to eq('me/0')
@@ -92,7 +82,6 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
       expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2')
     end
@@ -108,11 +97,7 @@ describe 'elasticsearch job' do
           instances: [Bosh::Template::Test::LinkInstance.new(address: '10.0.8.2'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.3'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.4')],
-          properties: {
-            'elasticsearch'=> {
-              'cluster_name' => 'test'
-            },
-          }
+          properties: {}
         ),
       ]))
       expect(config['node.name']).to eq('me/0')
@@ -120,7 +105,6 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
       expect(config['cluster.initial_master_nodes']).to be_nil
     end
@@ -134,18 +118,13 @@ describe 'elasticsearch job' do
           instances: [Bosh::Template::Test::LinkInstance.new(address: '10.0.8.2'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.3'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.4')],
-          properties: {
-            'elasticsearch'=> {
-              'cluster_name' => 'test'
-            },
-          }
+          properties: {}
         ),
       ]))
       expect(config['node.master']).to eq(true)
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
       expect(config['cluster.initial_master_nodes']).to be_nil
     end
@@ -159,11 +138,7 @@ describe 'elasticsearch job' do
           instances: [Bosh::Template::Test::LinkInstance.new(address: '10.0.8.2'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.3'),
             Bosh::Template::Test::LinkInstance.new(address: '10.0.8.4')],
-          properties: {
-            'elasticsearch'=> {
-              'cluster_name' => 'test',
-            },
-          }
+          properties: {}
         ),
       ]))
       expect(config['node.name']).to eq('me/0')
@@ -171,7 +146,6 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['cluster.name']).to eq('test')
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
       expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
@@ -237,27 +211,57 @@ describe 'elasticsearch job' do
   end
 
   describe 'elasticsearch ssl ca' do
-    let(:template) { job.template('config/certs/ca.pem') }
+    let(:template) { job.template('config/certs/http/ca.pem') }
 
     it 'sets ca' do
-      cert_file = template.render({'elasticsearch' => {'ssl'=> {'ca' => 'certificate'}}}).strip
+      cert_file = template.render({
+        'elasticsearch' => {
+          'security' => {
+            'ssl'=> {
+              'http' => {
+                'ca' => 'certificate'
+              }
+            }
+          }
+        }
+      }).strip
       expect(cert_file).to include('certificate')
     end
   end
 
   describe 'elasticsearch ssl cert' do
-    let(:template) { job.template('config/certs/cert.pem') }
+    let(:template) { job.template('config/certs/http/cert.pem') }
     it 'sets cert' do
-      cert_file = template.render({'elasticsearch' => {'ssl'=> {'cert' => 'certificate'}}}).strip
+      cert_file = template.render({
+        'elasticsearch' => {
+          'security' => {
+            'ssl'=> {
+              'http' => {
+                'certificate' => 'certificate'
+              }
+            }
+          }
+        }
+      }).strip
       expect(cert_file).to include('certificate')
     end
   end
 
   describe 'elasticsearch ssl key' do
-    let(:template) { job.template('config/certs/key.pem') }
+    let(:template) { job.template('config/certs/http/key.pem') }
 
     it 'sets key' do
-      key_file = template.render({'elasticsearch' => {'ssl'=> {'key' => 'key'}}}).strip
+      key_file = template.render({
+        'elasticsearch' => {
+          'security' => {
+            'ssl'=> {
+              'http' => {
+                'private_key' => 'key'
+              }
+            }
+          }
+        }
+      }).strip
       expect(key_file).to include('key')
     end
   end
