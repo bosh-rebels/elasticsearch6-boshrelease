@@ -6,7 +6,6 @@ templates:
   bin/pre-start: bin/pre-start
   bin/post-start: bin/post-start
   bin/keystore-add.sh: bin/keystore-add.sh
-  bin/setup-builtin-users.sh: bin/setup-builtin-users.sh
   bin/ctl_utils.sh: bin/ctl_utils.sh
   config/elasticsearch.yml: config/elasticsearch.yml
   config/jvm.options: config/jvm.options
@@ -67,14 +66,6 @@ properties:
   elasticsearch.health.interval:
     description: Post-start interval for node to join cluster (seconds)
     default: 15
-  elasticsearch.security.builtin_users:
-    default: []
-    example:
-      - name: username-1
-        password: password
-      - name: another-user
-        password: secret
-    description: A list containing the users/passwords to setup
   elasticsearch.security.enabled:
     description: Enable xpack.security.enabled
     default: false

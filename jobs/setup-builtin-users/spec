@@ -1,0 +1,21 @@
+---
+name: setup-builtin-users
+
+templates:
+  bin/run: bin/run
+
+consumes:
+- name: elasticsearch
+  type: elasticsearch
+
+packages: []
+
+properties: 
+  elasticsearch.security.builtin_users:
+    default: []
+    example:
+      - name: username-1
+        password: password
+      - name: another-user
+        password: secret
+    description: A list containing the users/passwords to setup

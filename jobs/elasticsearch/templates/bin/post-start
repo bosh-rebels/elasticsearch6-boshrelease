@@ -1,7 +1,0 @@
-#!/bin/bash
-
-LOG_DIR=/var/vcap/sys/log/elasticsearch
-
-<% if spec.bootstrap %>
-/var/vcap/jobs/elasticsearch/bin/setup-builtin-users.sh >> "$LOG_DIR/post-start.stdout.log"
-<% end %>

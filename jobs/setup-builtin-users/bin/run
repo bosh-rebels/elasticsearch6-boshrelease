@@ -7,21 +7,27 @@ set -u # report the usage of uninitialized variables
 
 ############################################################################
 
+<% if not spec.bootstrap %>
+exit 0
+<% end %>
+
 <%
-protocol = p('elasticsearch.client.protocol', 'http')
+node = link('elasticsearch')
+protocol = node.p('elasticsearch.client.protocol', 'http')
 url="#{protocol}://"
-username = p('elasticsearch.client.username', nil)
-password = p('elasticsearch.client.password', nil)
+username = node.p('elasticsearch.client.username', nil)
+password = node.p('elasticsearch.client.password', nil)
 if username && password
   url += "#{username}:#{password}@"
 end
-host = spec.address
+host = node.instances.first.address
 url += host
-port = p('elasticsearch.client.port')
+port = node.p('elasticsearch.client.port', nil)
 if port
   url += ":#{port}"
 end
 %>
+
 function request_elk {
     local action=$1
     local endpoint=$2
