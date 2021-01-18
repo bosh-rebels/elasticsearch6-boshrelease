@@ -28,7 +28,7 @@ function request_elk {
     local body=$3
     local url=<%= url %>
 
-    curl -s -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body" > /dev/null
+    curl -X "$action" -H 'Content-Type: application/json' -k "${url}${endpoint}" -d "$body"
 }
 
 <% p('elasticsearch.security.builtin_users').each do |user_hash| %>
