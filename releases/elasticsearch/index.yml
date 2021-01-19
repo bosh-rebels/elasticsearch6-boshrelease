@@ -9,6 +9,8 @@ builds:
     version: 1.0.16
   7b876b0a-223a-41d7-7568-cadfd5ed5cab:
     version: 1.0.15
+  85a538ea-8ebf-4d17-573a-bd8ecb539618:
+    version: 1.0.19
   cdc919b2-ab84-401a-657c-1947273af824:
     version: 1.0.13
   fd8d9dbf-3c2e-4dab-503d-14f43b19abf1:
