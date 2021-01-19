@@ -55,4 +55,6 @@ function request_elk {
     fi
 }
 
+<% if spec.bootstrap %>
 request_elk PUT /_license?acknowledge=true '<%= p("elasticsearch.license") %>'
+<% end %>
