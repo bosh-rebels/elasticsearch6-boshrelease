@@ -137,5 +137,20 @@ xpack.security.http.ssl.key: certs/http/key.pem
 xpack.security.http.ssl.certificate: certs/http/cert.pem
 xpack.security.http.ssl.certificate_authorities: certs/http/ca.pem
   <% end %>
+<% end %>
 
+<% if p('elasticsearch.smtp.enabled') %>
+xpack.notification.email:
+  default_account: <%= p('elasticsearch.smtp.default_account') %>
+  account:
+    <% p('elasticsearch.smtp.accounts').each do |account| %>
+    <%= account.fetch('name') %>:
+      profile: <%= account.fetch('profile') %>
+      smtp:
+        auth: <%= account.fetch('auth')%>
+        starttls.enable: <%= account.fetch('starttls.enable')%>
+        host: <%= account.fetch('host')%>
+        port: <%= account.fetch('port')%>
+        user: <%= account.fetch('user')%>
+    <% end %>
 <% end %>

@@ -149,6 +149,50 @@ describe 'elasticsearch job' do
       expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
       expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
+
+    it 'disables SMTP by default' do
+      rendered_template = YAML.safe_load(template.render({}, consumes: links))
+
+      expect(rendered_template).to_not include('xpack.notification.email')
+    end
+
+    it 'configures smtp accounts successfully' do
+      rendered_template = YAML.safe_load(template.render({
+        'elasticsearch' => {
+          'smtp' => {
+            'enabled' => true,
+            'default_account'=> 'default',
+            'accounts'=> [
+              'name' => 'default',
+              'profile' => 'standard',
+              'auth' => false,
+              'starttls.enable' => false,
+              'host' => 'smtp.corp',
+              'port' => 25,
+              'user' =>  'some@example.corp'
+            ]
+          }
+        }
+      }, consumes: links))
+
+      email_config = rendered_template.fetch('xpack.notification.email')
+
+      expect(email_config.fetch('default_account')).to eq('default')
+      expect(email_config.fetch('account')).to include('default')
+
+      default_account = email_config.fetch('account').fetch('default')
+
+      expect(default_account.fetch('profile')).to eq('standard')
+      expect(default_account.fetch('smtp')).to eq({
+        'auth' => false,
+        'starttls.enable' => false,
+        'host' => 'smtp.corp',
+        'port' => 25,
+        'user' => 'some@example.corp'
+      })
+    end
+
+
   end
 
   describe 'keystore-add.sh' do
@@ -265,5 +309,4 @@ describe 'elasticsearch job' do
       expect(key_file).to include('key')
     end
   end
-
 end

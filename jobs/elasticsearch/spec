@@ -138,6 +138,23 @@ properties:
   elasticsearch.client.password:
     description: "Password of elasticsearch to send requests to"
     default: ""
+  elasticsearch.smtp.enabled:
+    description: "SMTP configuration for watchers"
+    default: false
+  elasticsearch.smtp.default_account:
+    description: "Default SMTP account"
+    default: default
+  elasticsearch.smtp.accounts:
+    description: "SMTP Accounts/Servers"
+    default: []
+    example:
+    - name: default
+      profile: standard
+      auth: true
+      starttls.enable: true
+      host: smtp.example.corp
+      port: 587
+      user: noreply@elastic.example.corp
   elasticsearch.config_options:
     description: "Additional options to append to elasticsearch.yml (YAML format)."
   elasticsearch.migrate_6_to_7:
