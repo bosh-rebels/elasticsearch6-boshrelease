@@ -183,6 +183,9 @@ describe 'elasticsearch job' do
       default_account = email_config.fetch('account').fetch('default')
 
       expect(default_account.fetch('profile')).to eq('standard')
+      expect(default_account.fetch('email_defaults')).to eq({
+        'from' => 'some@example.corp'
+      })
       expect(default_account.fetch('smtp')).to eq({
         'auth' => false,
         'starttls.enable' => false,

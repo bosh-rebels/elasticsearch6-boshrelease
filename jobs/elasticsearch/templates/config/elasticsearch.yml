@@ -146,6 +146,8 @@ xpack.notification.email:
     <% p('elasticsearch.smtp.accounts').each do |account| %>
     <%= account.fetch('name') %>:
       profile: <%= account.fetch('profile') %>
+      email_defaults:
+        from: <%= account.fetch('user')%>
       smtp:
         auth: <%= account.fetch('auth')%>
         starttls.enable: <%= account.fetch('starttls.enable')%>
