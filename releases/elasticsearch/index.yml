@@ -15,6 +15,8 @@ builds:
     version: 1.0.20
   cdc919b2-ab84-401a-657c-1947273af824:
     version: 1.0.13
+  cf6fa12f-b992-45bd-59e7-4973e503f5ce:
+    version: 1.0.21
   fd8d9dbf-3c2e-4dab-503d-14f43b19abf1:
     version: 1.0.12
 format-version: "2"
