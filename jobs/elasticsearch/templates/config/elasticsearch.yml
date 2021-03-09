@@ -135,7 +135,9 @@ xpack.security.http.ssl.enabled: <%= p('elasticsearch.security.ssl.http.enabled'
   <% if p('elasticsearch.security.ssl.http.enabled')  %>
 xpack.security.http.ssl.key: certs/http/key.pem
 xpack.security.http.ssl.certificate: certs/http/cert.pem
+    <% if not p('elasticsearch.security.ssl.http.ca').empty? %>
 xpack.security.http.ssl.certificate_authorities: certs/http/ca.pem
+    <% end %>
   <% end %>
 <% end %>
 
