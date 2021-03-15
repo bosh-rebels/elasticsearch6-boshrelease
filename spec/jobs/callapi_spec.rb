@@ -56,18 +56,14 @@ describe 'callapi job' do
       }
 
       let(:valid_rendered_request) {
-        "curl -s -X  PUT -H 'Content-Type: application/json'  http://10.0.8.2:9200/_ilm/policy/datastream_policy"
-      }
-
-      let(:valid_rendered_payload) {
-        'curl -s -X PUT -H \'Content-Type: application/json\' -k http://10.0.8.2:9200/_ilm/policy/datastream_policy -d {"policy":{"phases":{"hot":{"min_age":"0ms","actions":{"rollover":{"max_age":"1d"}}},"delete":{"min_age":"7d","actions":{"delete":{}}}}}}'
+        "curl -s -k -X  PUT -H 'Content-Type: application/json'  http://10.0.8.2:9200/_ilm/policy/datastream_policy"
       }
 
       it 'renders properly' do
         expect { template.render({"calls" => valid_call}, consumes: links) }.not_to raise_error
         rendered_template = template.render({"calls" => valid_call}, consumes: links)
+        
         expect(rendered_template).to include(valid_rendered_request)
-        #expect(rendered_template).to include(valid_rendered_payload.to_s)
         puts rendered_template
       end
     end
