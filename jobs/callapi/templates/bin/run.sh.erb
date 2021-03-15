@@ -25,7 +25,7 @@ if_p('calls') do |api_calls|
 
   rendered_headers = api_call.fetch("headers").map{|header| "-H '#{header.keys[0]}: #{header.values[0]}'"}.join(" ")
 %>
-curl -s -X  <%= api_call.fetch("action") %> <%= rendered_headers %>  <%= url %><%= api_call.fetch("endpoint") %> -d '<%= api_call.fetch("payload") %>'
+curl -s -k -X  <%= api_call.fetch("action") %> <%= rendered_headers %>  <%= url %><%= api_call.fetch("endpoint") %> -d '<%= api_call.fetch("payload") %>'
 <%
   end
 end
