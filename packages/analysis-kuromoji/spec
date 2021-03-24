@@ -1,7 +1,0 @@
----
-name: analysis-kuromoji
-
-dependencies: []
-
-files:
-- analysis-kuromoji/analysis-kuromoji-7.10.2.zip

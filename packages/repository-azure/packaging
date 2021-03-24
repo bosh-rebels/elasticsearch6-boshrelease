@@ -1,3 +1,0 @@
-set -e
-
-cp repository-azure/repository-azure-7.10.2.zip $BOSH_INSTALL_TARGET/repository-azure.zip

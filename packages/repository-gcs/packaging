@@ -1,3 +1,0 @@
-set -e
-
-cp repository-gcs/repository-gcs-7.10.2.zip $BOSH_INSTALL_TARGET/repository-gcs.zip
