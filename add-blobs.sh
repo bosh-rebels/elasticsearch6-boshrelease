@@ -5,10 +5,7 @@ DOWNLOAD_FOLDER="/tmp/bosh_downloads"
 ES_VERSION=7.10.2
 
 plugin_blob_url_list=(\
-    https://artifacts.elastic.co/downloads/elasticsearch-plugins/analysis-kuromoji/analysis-kuromoji-${ES_VERSION}.zip \
     https://artifacts.elastic.co/downloads/elasticsearch-plugins/repository-s3/repository-s3-${ES_VERSION}.zip \
-    https://artifacts.elastic.co/downloads/elasticsearch-plugins/repository-gcs/repository-gcs-${ES_VERSION}.zip \
-    https://artifacts.elastic.co/downloads/elasticsearch-plugins/repository-azure/repository-azure-${ES_VERSION}.zip \
 )
 
 mkdir -p $DOWNLOAD_FOLDER/elasticsearch

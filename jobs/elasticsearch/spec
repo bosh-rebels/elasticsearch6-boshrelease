@@ -19,6 +19,7 @@ templates:
 packages:
 - elasticsearch
 - openjdk-11
+- repository-s3
 
 provides:
 - name: elasticsearch
@@ -92,11 +93,12 @@ properties:
 
   elasticsearch.plugins:
     description: "Plugins to run elasticsearch with (array[] = { plugin-name: install-source }; e.g. [ { analysis-kuromoji: 'analysis-kuromoji' } ])"
-    default: []
+    default:
+      - repository-s3: /var/vcap/packages/repository-s3/repository-s3.zip
   elasticsearch.plugin_install_opts:
     description: "Command line parameters for 'elasticsearch-plugin install'"
     example: ['--batch']
-    default: []
+    default: ['--batch']
   elasticsearch.health.disable_post_start:
     description: Allow node to run post-start script? (true / false)
     default: false

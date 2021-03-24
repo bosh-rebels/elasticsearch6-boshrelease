@@ -1,19 +1,7 @@
-analysis-kuromoji/analysis-kuromoji-7.10.2.zip:
-  size: 4665171
-  object_id: 0f0a7fcd-1ae7-42aa-64db-08e1811f0738
-  sha: sha256:b42cb046788dd08dee9ce19740c41d89287f42beb6d1dff1e477f7c982e5b761
 elasticsearch/elasticsearch-7.10.2.tar.gz:
   size: 164380146
   object_id: a45a3eee-1a67-4d7e-744d-ca91ac02efb9
   sha: sha256:afcd3dcebd5aa4fe99c4d2f705360371f7f0b52b3c21100e10bfcbf97a1186c6
-repository-azure/repository-azure-7.10.2.zip:
-  size: 3468964
-  object_id: e7dfac60-a562-4eec-41b7-762fc6bded1b
-  sha: sha256:c2196d93afd3b7a5e9da358ccaa9c912ffbec3d512c51ad14aecd0e5e428c1c7
-repository-gcs/repository-gcs-7.10.2.zip:
-  size: 8564599
-  object_id: 2799f1ba-f3f5-42b2-6272-3c2328f34a90
-  sha: sha256:25d5ade4bcd26ecd0c204b8b24813571e4e735e4d823926dd8dd178fb3813ba8
 repository-s3/repository-s3-7.10.2.zip:
   size: 4752079
   object_id: 1893561a-8f6c-4867-6e00-a16db6427883
