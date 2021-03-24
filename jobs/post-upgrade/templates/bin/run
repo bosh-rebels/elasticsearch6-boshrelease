@@ -5,6 +5,10 @@ exec 2>&1
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
+<% if not spec.bootstrap %>
+exit 0
+<% end %>
+
 <%
 node = link('elasticsearch')
 protocol = node.p('elasticsearch.client.protocol', 'http')
