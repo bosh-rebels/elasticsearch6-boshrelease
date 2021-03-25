@@ -1,4 +1,10 @@
 #!/bin/bash
+
+<% if not spec.bootstrap %>
+exit 0
+<% end %>
+
+
 <%
   elasticsearch_host = p("elasticsearch.host")
   if p("elasticsearch.prefer_bosh_link") then
