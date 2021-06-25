@@ -1,3 +1,0 @@
-- type: replace
-  path: /instance_groups/name=elasticsearch-master/instances
-  value: ((master_nodes_instances))

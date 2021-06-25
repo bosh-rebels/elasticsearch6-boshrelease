@@ -40,6 +40,9 @@ consumes:
   optional: true
 
 properties:
+  elasticsearch.discovery.minimum_master_nodes:
+    description: The discovery.zen.minimum_master_nodes sets the minimum number of master eligible nodes that need to join a newly elected master in order for an election to complete and for the elected node to accept its mastership
+    default: auto
   elasticsearch.log_level:
     description: The default logging level (e.g. WARN, DEBUG, INFO)
     default: INFO

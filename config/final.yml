@@ -1,7 +1,7 @@
-name: elasticsearch
+name: elasticsearch6
 blobstore:
   provider: s3
   options:
-    bucket_name: elasticsearch-boshrelease-blobstore
+    bucket_name: elasticsearch6-boshrelease-blobstore
     region: eu-west-2
     credentials_source: env_or_profile

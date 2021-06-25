@@ -38,5 +38,5 @@ function request_elk {
 }
 
 <% p('elasticsearch.security.builtin_users').each do |user_hash| %>
-request_elk POST /_security/user/<%="#{user_hash.fetch('name')}"%>/_password '{"password" : "<%= "#{user_hash.fetch('password')}" %>"}'
+request_elk POST /_xpack/security/user/<%="#{user_hash.fetch('name')}"%>/_password '{"password" : "<%= "#{user_hash.fetch('password')}" %>"}'
 <% end %>

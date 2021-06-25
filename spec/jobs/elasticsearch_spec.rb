@@ -27,8 +27,7 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['discovery.seed_hosts']).to eq('10.0.8.2')
-      expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2')
+      expect(config['discovery.zen.ping.unicast.hosts']).to eq('10.0.8.2')
       expect(config['xpack.security.enabled']).to eq(false)
     end
 
@@ -82,8 +81,7 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
-      expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2')
+      expect(config['discovery.zen.ping.unicast.hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
 
     it 'configures multi-clusters on non-master successfully' do
@@ -105,8 +103,7 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
-      expect(config['cluster.initial_master_nodes']).to be_nil
+      expect(config['discovery.zen.ping.unicast.hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
 
     it 'configures multi-clusters secondary master successfully' do
@@ -125,8 +122,7 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
-      expect(config['cluster.initial_master_nodes']).to be_nil
+      expect(config['discovery.zen.ping.unicast.hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
 
     it 'configures multi-clusters for migrate from 6 to 7 successfully' do
@@ -146,8 +142,7 @@ describe 'elasticsearch job' do
       expect(config['node.data']).to eq(true)
       expect(config['node.ingest']).to eq(false)
       expect(config['node.attr.zone']).to eq('az1')
-      expect(config['discovery.seed_hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
-      expect(config['cluster.initial_master_nodes']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
+      expect(config['discovery.zen.ping.unicast.hosts']).to eq('10.0.8.2,10.0.8.3,10.0.8.4')
     end
 
     it 'disables SMTP by default' do

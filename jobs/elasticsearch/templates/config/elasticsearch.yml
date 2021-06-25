@@ -106,12 +106,32 @@ cluster.name: <%= spec.deployment %>
     master_hosts = p("elasticsearch.master_hosts")
   end
 %>
-discovery.seed_hosts: <%= master_hosts.join(',') %>
-<% if p("elasticsearch.migrate_6_to_7") %>
-cluster.initial_master_nodes: <%= master_hosts.join(',') %>
-<% elsif p("elasticsearch.node.allow_master") && index == 0 %>
-cluster.initial_master_nodes: <%= master_hosts[0] %>
-<% end %>
+
+<%
+  minimum_master_nodes = p("elasticsearch.discovery.minimum_master_nodes")
+  if minimum_master_nodes == "auto"
+    masters = nil
+    respond_to?(:if_link) && if_link('elasticsearch') do |elasticsearch|
+      masters = link('elasticsearch').instances.length
+    end.else do
+      masters = p("elasticsearch.master_hosts").length
+    end
+    if masters % 2 == 0
+      raise "Expected an odd number of masters; got #{masters}"
+    end
+    minimum_master_nodes = masters / 2 + 1
+  end
+%>
+discovery.zen.minimum_master_nodes: <%= minimum_master_nodes %>
+<%
+  master_hosts = nil
+  if_link("elasticsearch") { |elasticsearch_link| master_hosts = elasticsearch_link.instances.map {|e| e.address}.join(',') }
+  unless master_hosts
+    master_hosts = p("elasticsearch.master_hosts").join(',')
+  end
+%>
+discovery.zen.ping.unicast.hosts: <%= master_hosts %>
+
 <% if_p('elasticsearch.config_options') do |config_options| %>
 <%= config_options.to_yaml.gsub(/---/, '') %>
 <% end %>

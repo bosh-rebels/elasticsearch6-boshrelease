@@ -1,3 +1,0 @@
-- type: replace
-  path: /instance_groups/name=elasticsearch-master/vm_extensions?/-
-  value: elasticsearch-lb

@@ -1,8 +1,6 @@
-elasticsearch/elasticsearch-7.10.2.tar.gz:
-  size: 164380146
-  object_id: a45a3eee-1a67-4d7e-744d-ca91ac02efb9
-  sha: sha256:afcd3dcebd5aa4fe99c4d2f705360371f7f0b52b3c21100e10bfcbf97a1186c6
-repository-s3/repository-s3-7.10.2.zip:
-  size: 4752079
-  object_id: 1893561a-8f6c-4867-6e00-a16db6427883
-  sha: sha256:7cdd9142c63d380084ef5a48c3ced7549a38737b14bbfea07ffeb052ded93481
+elasticsearch/elasticsearch-6.8.16.tar.gz:
+  size: 149125098
+  sha: sha256:be11e04d5fcf59f4bd92c54e06ce28ef83423ab00ba10169a909fb4eec91415e
+repository-s3/repository-s3-6.8.16.zip:
+  size: 4580132
+  sha: sha256:7eb4c4742fec65a5f411da0ae65320d0a55ba369c1f3abbbfca4d0500698c35d

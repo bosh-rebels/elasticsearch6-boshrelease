@@ -56,5 +56,5 @@ function request_elk {
 }
 
 <% if spec.bootstrap %>
-request_elk PUT /_license?acknowledge=true '<%= p("elasticsearch.license") %>'
+request_elk PUT /_xpack/license?acknowledge=true '<%= p("elasticsearch.license") %>'
 <% end %>
