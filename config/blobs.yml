@@ -1,6 +1,8 @@
 elasticsearch/elasticsearch-6.8.16.tar.gz:
   size: 149125098
+  object_id: 0479d03c-32e7-46a2-5cf5-569c77df498c
   sha: sha256:be11e04d5fcf59f4bd92c54e06ce28ef83423ab00ba10169a909fb4eec91415e
 repository-s3/repository-s3-6.8.16.zip:
   size: 4580132
+  object_id: 789bfdfb-3493-477b-6eb4-77992a329522
   sha: sha256:7eb4c4742fec65a5f411da0ae65320d0a55ba369c1f3abbbfca4d0500698c35d
