@@ -1,0 +1,6 @@
+builds:
+  bac9b727395becb8347acfb576f7b7caa98bc40e5b90beb23d6a7a894d571e3e:
+    version: bac9b727395becb8347acfb576f7b7caa98bc40e5b90beb23d6a7a894d571e3e
+    blobstore_id: 2dcfdcb8-083e-4613-5170-2fb10b98826d
+    sha1: sha256:b1de30b5e8d9f6a3cce64228acea89bac34272a1440de2cbe6324fa41b6a9a98
+format-version: "2"
