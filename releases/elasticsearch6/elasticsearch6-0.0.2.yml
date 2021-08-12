@@ -1,0 +1,74 @@
+name: elasticsearch6
+version: 0.0.2
+commit_hash: 775e1bf
+uncommitted_changes: false
+jobs:
+- name: apply-license
+  version: 62dedfa3798210d51be952cc6df4a041502ffdcdcdc857fd0496bfb25108329e
+  fingerprint: 62dedfa3798210d51be952cc6df4a041502ffdcdcdc857fd0496bfb25108329e
+  sha1: sha256:f687b1a016b16d1b1c4e2c2b51d3719ab7d37ebd56686207e800ba4afbc66415
+  packages: []
+- name: callapi
+  version: c37b48b9bcb500b11ce5bf3ddf29aa0e6b46e01c0e92c10cf1df77ef926d222d
+  fingerprint: c37b48b9bcb500b11ce5bf3ddf29aa0e6b46e01c0e92c10cf1df77ef926d222d
+  sha1: sha256:a84951502021b1b3071554782997cbb6c3e2a5a086546d101eecd5629d259917
+  packages: []
+- name: elasticsearch
+  version: 21c1696b098fd501213ec98d3025d5e9ca72d884973335c149562c96e5f34fc6
+  fingerprint: 21c1696b098fd501213ec98d3025d5e9ca72d884973335c149562c96e5f34fc6
+  sha1: sha256:7295ddbef61b1affd4f1bb7f7853f984d0577ef684b3846a52080a38df69f378
+  packages:
+  - elasticsearch
+  - openjdk-11
+  - repository-s3
+- name: elasticsearch-dynamic-properties
+  version: 10523fea45fab205e17eae9ed002d1dcb339995500bc222c4ccc3e0639fd9e15
+  fingerprint: 10523fea45fab205e17eae9ed002d1dcb339995500bc222c4ccc3e0639fd9e15
+  sha1: sha256:ae649959ac6d81b5c9b2b0ac9e03975f1ab9149537b8d3e9488eab05b3ecc14b
+  packages: []
+- name: elasticsearch-index-templates
+  version: 4da1c4cb4c15d5fd3285f94e66d9f690fbfa3e7483a79d00f64092cd676feb75
+  fingerprint: 4da1c4cb4c15d5fd3285f94e66d9f690fbfa3e7483a79d00f64092cd676feb75
+  sha1: sha256:713b16f08e68527c80819840243020fe0418e0276bd0bb2ee86e661d611bcf77
+  packages: []
+- name: elasticsearch-snapshot
+  version: 26e595f47a4301bfde6e23f43a46bcc9a361e81009e8ba3d7b0a653d3b47a7b7
+  fingerprint: 26e595f47a4301bfde6e23f43a46bcc9a361e81009e8ba3d7b0a653d3b47a7b7
+  sha1: sha256:0a2fa94c42a83d73dc120f098812665dda23f93f5cbc010aff7de592c723af10
+  packages: []
+- name: post-upgrade
+  version: da48b09550ad296774b4448cda000dd3464e5659a97d2129e5a77c11e656cf4f
+  fingerprint: da48b09550ad296774b4448cda000dd3464e5659a97d2129e5a77c11e656cf4f
+  sha1: sha256:b185c1f77b516d1276121209a8fe9b4acf0310e7314937caff87fb29edcab829
+  packages: []
+- name: pre-upgrade
+  version: bac9b727395becb8347acfb576f7b7caa98bc40e5b90beb23d6a7a894d571e3e
+  fingerprint: bac9b727395becb8347acfb576f7b7caa98bc40e5b90beb23d6a7a894d571e3e
+  sha1: sha256:b1de30b5e8d9f6a3cce64228acea89bac34272a1440de2cbe6324fa41b6a9a98
+  packages: []
+- name: setup-builtin-users
+  version: d0a1513420811871eda0fff1941e78656dc093febd5753780dbe8200d46b500b
+  fingerprint: d0a1513420811871eda0fff1941e78656dc093febd5753780dbe8200d46b500b
+  sha1: sha256:a6db6f1edeab44766498e444c2e1e1383dbbe11a8ef0e56bb81b08a90f02f311
+  packages: []
+packages:
+- name: elasticsearch
+  version: c0cd09d9ba9b139175150aa4a3e32eb4363b56bbacac41c39d445dbbdee014b0
+  fingerprint: c0cd09d9ba9b139175150aa4a3e32eb4363b56bbacac41c39d445dbbdee014b0
+  sha1: sha256:5babbbfe2bc3f21bb2b53d22786b2d8c8f1260e67510cbd58c97c690f5537168
+  dependencies: []
+- name: elasticsearch-index-templates
+  version: a12df48ea6f42617b66ff0f009ac777ad624b072187e53015ee09ef1b75c3fbd
+  fingerprint: a12df48ea6f42617b66ff0f009ac777ad624b072187e53015ee09ef1b75c3fbd
+  sha1: sha256:6d85d0f90e49f5b858dd967208d8e0d56e855f7f775bafcd2a7f82f086a2828e
+  dependencies: []
+- name: openjdk-11
+  version: 1b2aca50b3a14a3fdf4e92b9b9dcee3359995915f0cedc2d1be78c54b6ac82dc
+  fingerprint: 1b2aca50b3a14a3fdf4e92b9b9dcee3359995915f0cedc2d1be78c54b6ac82dc
+  sha1: sha256:9734ac4ab5b8951df5f01fa3b9492d65e781dbf9f32c703b611202f526c40029
+  dependencies: []
+- name: repository-s3
+  version: 67c44d5017aee65493793f4bdab64ffdde7379d15398812689ed216c646949b2
+  fingerprint: 67c44d5017aee65493793f4bdab64ffdde7379d15398812689ed216c646949b2
+  sha1: sha256:f2c3f3357d8b1c8b747512d6312decead8c3b7b72a4e3993e3bcd70ef4930c9a
+  dependencies: []
